@@ -1,4 +1,6 @@
-# cgMLST-Pseudomonas-aeruginosa
+# cgMLST-Pa
+
+cgMLST to *Pseudomonas aeruginosa*
 
 ## chewBBACA
 
