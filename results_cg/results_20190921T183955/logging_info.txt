@@ -1,0 +1,7 @@
+
+Starting Script at : 13:27:38-21/09/2019
+Finished Script at : 18:39:55-21/09/2019
+number of genomes: 141
+number of loci: 13588
+used this number of cpus: 15
+used a bsr of : 0.6
