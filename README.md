@@ -19,7 +19,7 @@ To download ChewBBACA access the link:
 * Step 7: Analyze the proteins in the genes of the wgMLST
 * Step 8: How to identify the allelic profile of the genomes of interest using this cgMLST database for *P. aeruginosa*
 * Step 9: Analyze the results
-* Step 10: Allele profile view by minimum spanning tree (mst)
+* Step 10: Allele profile view by minimum spanning tree (MST)
  
 ## Softwares and Downloads (Main dependencies)
 
@@ -37,9 +37,9 @@ To download ChewBBACA access the link:
 
 ## Selection of complete genomes for schema creation
 
-For *Pseudomonas aeruginosa* select the option RefSeq from GenBank at https://www.ncbi.nlm.nih.gov/assembly. RefSeq corresponds to a comprehensive, non-redundant, well-annotated set of reference sequences. A set of 142 complete genomes sequences of *P. aeruginosa* were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the complete genomes used to create the schema obtained from RefSeq can be found in the folder "Complete_Genomes" in the Complete_Genomes.xlsx format.
+For *Pseudomonas aeruginosa* select the option RefSeq from GenBank at https://www.ncbi.nlm.nih.gov/assembly. RefSeq corresponds to a comprehensive, non-redundant, well-annotated set of reference sequences. A set of 142 complete genomes sequences of *P. aeruginosa* were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the complete genomes used to create the schema obtained from RefSeq can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```.
 
-Multilocus sequence type (MLST) for the 142 complete genomes was determined using (https://github.com/sanger-pathogens/mlst_check) and the MLST schema for *P. aeruginosa* (www.pubmlst.org; downloaded September 2019). New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 142 complete genomes using the sanger-pathogens/mlst_check can be found in the folder "Complete_Genomes/Complete_Genomes.xlsx". 
+Multilocus sequence type (MLST) for the 142 complete genomes was determined using (https://github.com/sanger-pathogens/mlst_check) and the MLST schema for *P. aeruginosa* (www.pubmlst.org; downloaded September 2019). New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 142 complete genomes using the sanger-pathogens/mlst_check can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```. 
 
 Among the 142 genomes, *Pseudomonas aeruginosa* PAO1 reference genome (GCF_000006765.1) was included so that the Prodigal algorithm could use it as reference to recognize coding sequences (CDs). Prodigal generated the PAO1.trn file at this step. 
 
@@ -145,13 +145,13 @@ This modified list can be found: ```results_cg/list_genes_core.txt```.
 
 ## Step 3: Scheme Validation (Allele calling)
 
-For the validation step we selected 2759 unfinished *P. aeruginosa* genomes were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the drafts genomes used to validation the schema obtained from RefSeq can be found in the folder "Genomes_Validation" in the Genomes_Validation.xlsx format. 
+For the validation step we selected 2759 unfinished *P. aeruginosa* genomes were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the drafts genomes used to validation the schema obtained from RefSeq can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```. 
 
-Multilocus sequence type (MLST) was determined as described above in step 1: Creating the Schema. New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder "Genomes_Validation".
+Multilocus sequence type (MLST) was determined as described above in step 1: Creating the Schema. New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
 
 Genomes that could not be assigned sequence type (ST) (https://github.com/sanger-pathogens/mlst_check) were not included for the validation of the cgMLST scheme. Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes. A second filter was added to remove drafts genomes that had ≥200 contigs and 502 genomes were removed. 
 
-In the end, 73 drafts genomes were removed due to the absence of MLST *loci* and 502 were removed because the available sequences consisted of ≥200 contigs. Thus, of the 2759 drafts genomes obtained from RefSeq, 2184 genomes were used for the validation of the cgMLST scheme. The list of all the 2184 drafts genomes used to validation the schema obtained from RefSeq can be found in the folder "Genomes_Validation" in the Genomes_Validation.xlsx format.
+In the end, 73 drafts genomes were removed due to the absence of MLST *loci* and 502 were removed because the available sequences consisted of ≥200 contigs. Thus, of the 2759 drafts genomes obtained from RefSeq, 2184 genomes were used for the validation of the cgMLST scheme. The list of all the 2184 drafts genomes used to validation the schema obtained from RefSeq can be found in the folder: ```Genomes_Validation/Genomes_Validation.xlsx```.
 
 
 From this we repeat the allele call using only the selected candidate *3164 loci* for each of the draft genomes selected for validation (2184 genome drafts) after performing the filters described above.
@@ -207,7 +207,7 @@ In order to exclude validation genomes that have left the scheme it is necessary
 
 In this stage we choose the *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 that limited the loss of the *loci* in the genomes. 
 
-In this *Threshold* (200) a set of 2653 *loci* were found to be present in 99% the analyzed genomes, while 3116 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_all/GenomeQualityPlot.html```. The list with the genes present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```. From this list we created another (removedGenomes200thr.txt) with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
+In this *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the analyzed genomes, while 3116 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_all/GenomeQualityPlot.html```. The list with the genes present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```. From this list we created another (removedGenomes200thr.txt) with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
 
 In this *Threshold* (200) 5 drafts genomes were removed due to loss of *loci* targets.
 
@@ -229,7 +229,7 @@ This file can be found in the folder: ```analysis_all/removedGenomes200thr.txt``
 chewBBACA.py ExtractCgMLST -i cgMLST_all.tsv -o cgMLST_200 -p0.99 -g removedGenomes200thr.txt 
 ```
 
-This script selects *loci* and genomes that remained in the *Threshold 200* and excludes the validation and *loci* genomes that were excluded in this *Threshold*.
+This script selects *loci* and genomes that remained in the *Threshold* 200 and excludes the validation and *loci* genomes that were excluded in this *Threshold*.
 
 The folder with the output file can be found at: ```cgMLST_200```. This folder contains four files "cgMLST.tsv; cgMLSTschema.txt; mdata_stats.tsv and Presence_Absence.tsv".
 
@@ -275,7 +275,7 @@ The ```schema_seed/``` folder was created in Step 1 where we identified all CDs 
 
 ## Step 8.3: Download the list of target genes (gene_targets.txt): 
 
-This list already contains contains full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```.
+This list already contains full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```.
 
 ## Step 8.4: Download the Prodigal trained file
 
