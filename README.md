@@ -1,6 +1,8 @@
-# cgMLST-Pa
+# cgMLST to *Pseudomonas aeruginosa*
 
-cgMLST to *Pseudomonas aeruginosa*
+The objective of this repository is to describe a cgMLST schema proposed for *P. aeruginosa* with 2653 target genes. This schema was created with the ChewBBACA pipeline (link below). All steps and instructions for performing the schema are displayed as well as the output files. 
+
+The steps to run and download the *P. aeruginosa* cgMLST scheme are available in this repository.
 
 ## chewBBACA
 
@@ -263,19 +265,23 @@ chewBBACA.py UniprotFinder -i schema_seed/ -t proteinID_Genome.tsv --cpu 10
 
 ## Step 8: How to identify the allelic profile of the genomes of interest using this cgMLST database for *P. aeruginosa*
 
-In the steps below we are describing all the necessary steps to identify the allelic profile of the genomes of interest using the cgMLST scheme.
+In the steps below we are describing all the necessary steps to identify the allelic profile of the genomes of interest using the cgMLST schema.
 
 ## Step 8.1: Install ChewBBACA and all its dependencies;
 
 To download ChewBBACA and all its dependencies see the topic: Softwares and Downloads (Main dependencies); Other dependencies (for schema evaluation only):
 
-## Step 8.2: Download the folder (schema_seed) through the link available in step 1;
+## Step 8.2: Download Schema
 
-The ```schema_seed/``` folder was created in Step 1 where we identified all CDs of the 141 genomes creating the schema.
+To have access to the cgMLST schema for *P. aeruginosa* it is necessary to download the ```schema_seed/``` folder. To access this ```schema_seed/``` folder just enter the link (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
 
-## Step 8.3: Download the list of target genes (gene_targets.txt): 
+**Note:** The ```schema_seed/``` folder was created in Step 1 where we identified all CDs of the 141 complete genomes creating the schema.
 
-This list already contains full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```.
+## Step 8.3: Download the list of target genes
+
+This list already contains full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```. 
+
+The list of cgMLST target genes can be obtained from the ```Analyze_genomes/gene_targets.txt```folder.
 
 ## Step 8.4: Download the Prodigal trained file
 
