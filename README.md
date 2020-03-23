@@ -312,6 +312,6 @@ A master directory ```Analyze_genomes/``` containing the folders that are needed
 
 The allelic profile of the typed genomes will be in the folder: ```results/results_alleles.tsv``` which is the output of the file released by the script above. Others output released by the above script will be in the folder ```results/```, as an example: RepeatedLoci.txt; logging_info.txt; results_contigsInfo.tsv
 
-## Step 10: Allele profile view by minimum spanning tree (mst)
+## Step 10: Allele profile view by minimum spanning tree (MST)
 
 To view the allelic profile data of the typed genomes you need to access the output of the script present in the folder ```results/results_alleles.tsv```. It is possible in two ways the first is to download free software GrapeTree (version1.5.0) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection available in (https://github.com/achtman-lab/GrapeTree/releases) or through the software Phyloviz online.
