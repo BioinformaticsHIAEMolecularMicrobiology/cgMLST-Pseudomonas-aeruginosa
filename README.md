@@ -1,8 +1,8 @@
 # cgMLST to *Pseudomonas aeruginosa*
 
-The objective of this repository is to describe a cgMLST schema proposed for *P. aeruginosa* with 2653 target genes. This schema was created with the ChewBBACA pipeline (link below). All steps and instructions for performing the schema are displayed as well as the output files. 
+The objective of this repository is to describe a cgMLST scheme proposed for *P. aeruginosa*. This scheme was created with the ChewBBACA pipeline (link below). Input files used to create and validate the scheme as well as output files from each step are available. 
 
-The steps to run and download the *P. aeruginosa* cgMLST scheme are available in this repository.
+Additionally, the steps to run and download the *P. aeruginosa* cgMLST scheme are also available in this repository. (Steps 8, 9 and 10)
 
 ## chewBBACA
 
@@ -12,13 +12,13 @@ To download ChewBBACA access the link:
 
 ## Workflow
 
-* Step 1: Schema Creation
+* Step 1: Scheme Creation
 * Step 2: Allele calling
 * Step 3: Schema Validation (Allele call)
 * Step 4: Extracting the Matrix *loci*
 * Step 5: Minimum Spanning Tree (MST)
-* Step 6: Evaluation of the schema cgMLST
-* Step 7: Analyze the proteins in the genes of the wgMLST
+* Step 6: Evaluation of the cgMLST scheme
+* Step 7: Analysis of the proteins/genes of the wgMLST
 * Step 8: How to identify the allelic profile of the genomes of interest using this cgMLST database for *P. aeruginosa*
 * Step 9: Analyze the results
 * Step 10: Allele profile view by minimum spanning tree (MST)
@@ -39,11 +39,11 @@ To download ChewBBACA access the link:
 
 ## Selection of complete genomes for schema creation
 
-For *Pseudomonas aeruginosa* select the option RefSeq from GenBank at https://www.ncbi.nlm.nih.gov/assembly. RefSeq corresponds to a comprehensive, non-redundant, well-annotated set of reference sequences. A set of 142 complete genomes sequences of *P. aeruginosa* were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the complete genomes used to create the schema obtained from RefSeq can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```.
+For *Pseudomonas aeruginosa* select the option RefSeq at https://www.ncbi.nlm.nih.gov/assembly. RefSeq (NCBI Reference Sequence database) corresponds to a comprehensive, non-redundant, well-annotated set of reference sequences. A set of 142 complete genomes sequences of *P. aeruginosa* were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the complete genomes used to create the scheme can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```.
 
-Multilocus sequence type (MLST) for the 142 complete genomes was determined using (https://github.com/sanger-pathogens/mlst_check) and the MLST schema for *P. aeruginosa* (www.pubmlst.org; downloaded September 2019). New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 142 complete genomes using the sanger-pathogens/mlst_check can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```. 
+Multilocus sequence type (MLST) for the 142 complete genomes was determined using (https://github.com/sanger-pathogens/mlst_check) and the MLST schema for *P. aeruginosa* (www.pubmlst.org). New sequence types (STs) when necessary. The STs obtained for each of the 142 complete genomes using the sanger-pathogens/mlst_check can be found in the folder ```Complete_Genomes/Complete_Genomes.xlsx```. 
 
-Among the 142 genomes, *Pseudomonas aeruginosa* PAO1 reference genome (GCF_000006765.1) was included so that the Prodigal algorithm could use it as reference to recognize coding sequences (CDs). Prodigal generated the PAO1.trn file at this step. 
+Among the 142 genomes, *Pseudomonas aeruginosa* PAO1 reference genome (GCF_000006765.1) was used by Prodigal algorithm as reference to recognize coding sequences (CDs). Prodigal generated the PAO1.trn file at this step. 
 
 **The PAO1 genome was then removed from further analysis**.
 
@@ -56,7 +56,7 @@ Among the 142 genomes, *Pseudomonas aeruginosa* PAO1 reference genome (GCF_00000
 chewBBACA.py CreateSchema -i Complete_Genomes --cpu 15 -o schema_seed --ptf PAO1.trn
 ```
 
-The above command uses 15 CPU and creates the schema in the schema_seed folder using the trained product folder PAO1.trn that was generated using the reference genome PAO1 (GCF_000006765.1). The wgMLST schema was defined with 13588 *loci* based on the 141 complete genomes that created the schema. At this point the schema is defined as a set of *loci* each with a single allele. 
+The above command uses 15 CPU and creates the scheme in the schema_seed folder using the trained product folder PAO1.trn that was generated using the reference genome PAO1 (GCF_000006765.1). The wgMLST scheme generated was defined with 13588 *loci* based on the 141 complete genomes. At this point the scheme is defined as a set of candidate *loci*, each containing a single allele. 
 
 Due to the size of the file schema_seed it was not possible to upload it on GitHub, but a link to access the file schema_seed is available at: (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
 
@@ -85,15 +85,15 @@ In this step *loci* considered paralogous from result of the allelecall (see abo
 # run remove genes
 chewBBACA.py RemoveGenes -i results_cg/results_20190921T183955/results_alleles.tsv -g results_cg/results_20190921T183955/RepeatedLoci.txt -o alleleCallMatrix_cg
 ```
-In this step of 282 *loci* were identified as possible paralogs that were removed from further analysis. The list with the RepeatedLoci.txt can be found at: ```results_cg/results_20190921T183955/RepeatedLoci.txt```
+In this step, 282 *loci* were identified as possible paralogs and were removed from further analysis. The list RepeatedLoci.txt can be found at: ```results_cg/results_20190921T183955/RepeatedLoci.txt```
 
 The output file can be found at: ```analysis_cg/alleleCallMatrix_cg.tsv```
 
-## Step 2.2: Genomes Quality Control
+## Step 2.2: Genome Quality Control
 
-In this step we define a *Threshold* of the schema that limits the loss of *loci* targets defined in the previous steps while excluding genomes considered to be of low quality due to significant *loci* absence. 
+In this step we define a *Threshold* for the scheme that limits the loss of *loci* targets defined in the previous steps while excluding genomes considered to be of low quality due to significant *loci* absence. 
 
-We then define the percentage of *loci* that will constitute the schema based on how many targets we want to keep in this phase:  **100%, 99.5%, 99% and 95%** of the *loci* present in the set of high quality genomes. This is one of the main steps in defining the cgMLST schema targets.
+With this analysis we define the percentage of *loci* that will constitute the scheme based on how many targets we want to keep in this phase:  **100%, 99.5%, 99% and 95%** of the *loci* present in the set of high quality genomes. This is the main step in defining the cgMLST scheme targets.
 
 ## Command:
 
@@ -102,7 +102,7 @@ We then define the percentage of *loci* that will constitute the schema based on
 chewBBACA.py TestGenomeQuality -i alleleCallMatrix_cg.tsv -n 13 -t 300 -s 5
 ```
 
-In this *Threshold* (120) a set of 3168 *loci* were found to be present in all the analyzed complete genomes, while 4776 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_cg/GenomeQualityPlot.html```. The list with the genes present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_cg/Genes_95%.txt```. 
+In this *Threshold* 120 a set of 3168 *loci* were found to be present in all the analyzed complete genomes, while 4776 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_cg/GenomeQualityPlot.html```. The list with the genes present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_cg/Genes_95%.txt```. 
 
 In this stage we chose the *loci* present in 100% (*p1.0*) of the complete genomes and the *Threshold* 120 that limited the loss of the *loci* in the genomes. In this *Threshold* (120) 11 complete genomes were removed due to loss of *loci* targets. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_cg/removedGenomes.txt```. From this list we created another (GenomeRemoved120thr.txt) with only the genomes removed at *Threshold* (120). The list of genomes removed at *Threshold 120* can be retrieved in the folder: ```analysis_cg/GenomeRemoved120thr.txt```
 
