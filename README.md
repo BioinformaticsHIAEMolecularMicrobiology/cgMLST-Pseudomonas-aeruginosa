@@ -201,15 +201,15 @@ After concatenation, we used the *TestGenomeQuality* to assess the impact of eac
 ```bash
  chewBBACA.py TestGenomeQuality -i cgMLST_all.tsv -n 13 -t 300 -s 5
 ```
-The folder with the output file can be found at: ```analysis_all/GenomeQualityPlot.html```.
+The folder with the output file can be found at: ```analysis_all/GenomeQualityPlot.html```. The list with the *loci* present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```.
 
 In order to exclude validation genomes that have left the scheme it is necessary to follow the steps described in **Step 2.2**
 
 ## Step 4: Extracting the Matrix loci
 
-At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. 
+At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. In *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the validation genomes. 
 
-In *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the analyzed genomes, while 3116 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_all/GenomeQualityPlot.html```. The list with the *loci* present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```. From this list we created another (removedGenomes200thr.txt) with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
+From the original "removedGenomes.txt" file  that can be retrieved in the ```analysis_all/removedGenomes.txt``` folder we created another (removedGenomes200thr.txt) file with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
 
 Using *Threshold* (200) only 5 draft genomes were removed due to absence of *loci* targets.
 
@@ -241,7 +241,7 @@ The cgMLST targets can be found at: ```cgMLST_200/cgMLSTschema.txt``` It contain
 
 We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets should be present in all tested isolates. Thus, an isolate is considered to be "typed" with our cgMLST scheme if at least 95% of the 2653 targets were present.
 
-In order to check if this was true,  we re-analyzed 2195 genomes (XXXX quem sao? plus the 11 complete genomes that had been removed during the scheme creation step) and 2184 draft genomes that were used to validate the cgMLST scheme. 
+In order to check if this was true,  we re-analyzed all 2325 genomes used in the creation and validation stages, even those that were in these different stages. 
 
 ## Command: 
 
@@ -256,7 +256,7 @@ For the visualization of results, minimum spanning trees were buitl. Based on th
 
 ## Step 6: Evaluation of the schema cgMLST
 
-To assess the variability of the *loci* targets of cgMLST as well as the quality of the *loci* we run this script and graphically visualize the data.
+To assess the variability of the *loci* targets of cgMLST as well as the quality of the *loci* we run this script and graphically visualize the data in a series of html files.
 
 ## Command:
 
@@ -280,27 +280,31 @@ chewBBACA.py UniprotFinder -i schema_seed/ -t proteinID_Genome.tsv --cpu 10
 
 In the steps below we describe all the necessary steps to identify the allelic profile of the genomes of interest using this cgMLST scheme.
 
-## Step 8.1: Install ChewBBACA and all its dependencies;
+## Step 8.1: A master directory to run ChewBBACA
+
+A master directory ```Analyze_genomes/``` containing the folders that are needed to run ChewBBACA with the 2653 cgMLST target genes was created as an example. This folder contains a directory called ```example_genomes/``` representing the folder of the genomes to be typed. The second folder is the ```example_schema_seed/``` representing the ```schema_seed/``` folder that must be downloaded. In addition to two “gene_targets.txt” files containing the 2653 target genes of cgMLST and the file "PA01.trn" which is the prodigal's trained file to recognize CDs.
+
+## Step 8.2: Install ChewBBACA and all its dependencies;
 
 To download ChewBBACA and all its dependencies see the topic: Softwares and Downloads (Main dependencies); Other dependencies (for scheme evaluation only):
 
-## Step 8.2: Download Scheme
+## Step 8.3: Download Scheme
 
 To have access to the cgMLST scheme for *P. aeruginosa* it is necessary to download the ```schema_seed/``` folder. To access this ```schema_seed/``` folder just enter the link (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
 
 **Note:** The ```schema_seed/``` folder was created in Step 1 where we identified all CDs of the 141 complete genomes creating the scheme.
 
-## Step 8.3: Download the list of target genes
+## Step 8.4: Download the list of target genes
 
 This list already contains the full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```. 
 
 The list of cgMLST target genes can be obtained from the ```Analyze_genomes/gene_targets.txt```folder.
 
-## Step 8.4: Download the Prodigal trained file
+## Step 8.5: Download the Prodigal trained file
 
 It is recommended to upload the trained folder (PA01.trn) because it is the reference folder for Prodigal to recognize the coding sequences (CDs). Prodigal was trained with the reference genome of *Pseudomonas aeruginosa* (PAO1) to recognize CDs.
 
-## Step 8.5: Genomes of interest
+## Step 8.6: Genomes of interest
 
 The genomes of interest must be in a specific folder, for example the ```genomes/``` folder and must be in the same directory that contains the ```schema_seed/``` folder.
 
@@ -316,10 +320,6 @@ chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results --cpu 15 --ptf
 **Note**:The list "gene_targets.txt" containing the 2653 cgMLST target genes with the path to the schema_seed folder”
 
 This command will release the output in the folder: ```results/```
-
-## Step 8.6: A master directory to run ChewBBACA
-
-A master directory ```Analyze_genomes/``` containing the folders that are needed to run ChewBBACA with the 2653 cgMLST target genes was created as an example. This folder contains a directory called ```example_genomes/``` representing the folder of the genomes to be typed. The second folder is the ```example_schema_seed/``` representing the ```schema_seed/``` folder that must be downloaded. In addition to two “gene_targets.txt” files containing the 2653 target genes of cgMLST and the file "PA01.trn" which is the prodigal's trained file to recognize CDs.
 
 ## Step 9: Analyze the results
 
