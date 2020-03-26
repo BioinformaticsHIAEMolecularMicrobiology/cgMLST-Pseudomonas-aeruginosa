@@ -207,7 +207,7 @@ In order to exclude validation genomes that have left the scheme it is necessary
 
 ## Step 4: Extracting the Matrix loci
 
-At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. In *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the validation genomes. 
+At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. In *Threshold* 200 a set of 2653 gene targets were found to be present in 99% the validation genomes. 
 
 From the original "removedGenomes.txt" file  that can be retrieved in the ```analysis_all/removedGenomes.txt``` folder we created another (removedGenomes200thr.txt) file with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
 
