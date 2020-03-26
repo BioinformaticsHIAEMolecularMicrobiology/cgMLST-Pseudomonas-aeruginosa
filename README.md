@@ -237,6 +237,19 @@ The folder with the output file can be found at: ```cgMLST_200```. This folder c
 
 The folder with targets of cgMLST the file can be found at: ```cgMLST_200/cgMLSTschema.txt``` contains the list of 2653 genes in the core genome defined as targets of cgMLST. The list with the 2653 cgMLST target genes with the path added for each locus fasta file to be searched in the schema_seed folder is in the folder:```cgMLST_200/gene_targets.txt```
 
+## Step 4.1: Checking the percentage of target genes found in the evaluated genomes
+
+With the schema terminated with 2653 target genes. It was assumed that a well-defined cgMLST scheme should cover at least 95% of the cgMLST genes should be present in all isolates. Thus, we consider that an isolate is considered typed with our cgMLST scheme with 2653 targets for *P. aeruginosa* when it has coverage of at least 95% of the cgMLST genes.
+
+We did not analyze the 130 complete genomes that created the scheme since they had all 2653 cgMLST targets. Thus, we re-analyzed 2195 genomes, of which 11 were complete genomes that were removed in the schema creation step and 2184 draft genomes that were used to validate the cgMLST scheme. 
+
+## Command: 
+
+```bash
+chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2195_genomes --cpu 15 --ptf PAO1.trn
+```
+**Note**: After releasing the ```results_2195_genomes/``` folder, analyze the file ```results/results_statistics.tsv.```contains the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is considered typed through this schema when at least 95% of the targets are found in the genome of interest**.
+
 ## Step 5: Minimum Spanning Tree
 
 Based on the allelic profiles obtained by the cgMLST scheme for each of the 2309 genomes minimum spanning trees (MST) were constructed using the software GrapeTree (version 1.5.0) (https://github.com/achtman-lab/GrapeTree/releases) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection. The ```cgMLST_200/cgMLST.tsv ``` file contains the allelic profile of the 2309 genomes typed by cgMLST.
@@ -310,7 +323,9 @@ A master directory ```Analyze_genomes/``` containing the folders that are needed
 
 ## Step 9: Analyze the results
 
-The allelic profile of the typed genomes will be in the folder: ```results/results_alleles.tsv``` which is the output of the file released by the script above. Others output released by the above script will be in the folder ```results/```, as an example: RepeatedLoci.txt; logging_info.txt; results_contigsInfo.tsv
+The allelic profile of the typed genomes will be in the folder: ```results/results_alleles.tsv``` which is the output of the file released by the script above. Others output released by the above script will be in the folder ```results/```, as an example: RepeatedLoci.txt; logging_info.txt; results_contigsInfo.tsv and results_statistics.tsv.
+
+**Note**: After releasing the ```results/``` folder, analyze the file ```results/results_statistics.tsv.```contains the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is considered typed through this schema when at least 95% of the targets are found in the genome of interest**.
 
 ## Step 10: Allele profile view by minimum spanning tree (MST)
 
