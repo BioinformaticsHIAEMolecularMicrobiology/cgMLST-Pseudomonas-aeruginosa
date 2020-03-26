@@ -2,7 +2,7 @@
 
 The objective of this repository is to describe how we created a cgMLST for *P. aeruginosa*. This scheme was created with the ChewBBACA pipeline (link below). Input files used to create and validate the scheme as well as output files from each step are available. 
 
-Additionally, the steps to run the scheme and/or download the *P. aeruginosa* selected *loci* that compose the cgMLST scheme are also available in this repository. (Steps 8, 9 and 10)
+Additionally, the steps to run the scheme and/or download the *P. aeruginosa* selected target genes that compose the cgMLST scheme are also available in this repository. (Steps 8, 9 and 10)
 
 ## chewBBACA
 
@@ -15,9 +15,9 @@ To download ChewBBACA access the link:
 * Step 1: Scheme Creation
 * Step 2: Allele calling
 * Step 3: Scheme Validation (Allele call)
-* Step 4: Extracting the Matrix *loci*
+* Step 4: Extracting the Matrix target genes
 * Step 5: Minimum Spanning Tree (MST)
-* Step 6: Evaluation of the cgMLST scheme
+* Step 6: Graphical evaluation of the scheme
 * Step 7: Analysis of the proteins/genes of the wgMLST
 * Step 8: How to identify the allelic profile of the genomes of interest using this cgMLST database for *P. aeruginosa*
 * Step 9: Analyze the results
@@ -56,7 +56,7 @@ Among the 142 genomes, *Pseudomonas aeruginosa* PAO1 reference genome (GCF_00000
 chewBBACA.py CreateSchema -i Complete_Genomes --cpu 15 -o schema_seed --ptf PAO1.trn
 ```
 
-The above command uses 15 CPU and creates a preliminary scheme (wgMLST) in the schema_seed folder using the trained product folder PAO1.trn that was generated using the reference genome PAO1 (GCF_000006765.1) and 141 complete genome sequences. The wgMLST scheme generated contained 13588 *loci* based on the 141 complete genomes. At this point the scheme is defined as a set of candidate *loci*, each containing a single allele. 
+The above command uses 15 CPU and creates a preliminary scheme (wgMLST) in the schema_seed folder using the trained product folder PAO1.trn that was generated using the reference genome PAO1 (GCF_000006765.1) and 141 complete genome sequences. The wgMLST scheme generated contained 13588 *loci* based on the 141 complete genomes. 
 
 Due to the size of the file schema_seed it was not possible to upload it on GitHub, but a link to access the file schema_seed is available at: (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
 
@@ -77,7 +77,7 @@ The allele calling used the default BLAST Score Ratio (BSR) threshold of 0.6.
 
 ## Step 2.1: Paralog detection
 
-In this step *loci* considered paralogous from result of the allelecall (see above) are removed
+In this step genes considered paralogous from result of the allelecall (see above) are removed
 
 ## Command: 
 
@@ -85,7 +85,7 @@ In this step *loci* considered paralogous from result of the allelecall (see abo
 # run remove genes
 chewBBACA.py RemoveGenes -i results_cg/results_20190921T183955/results_alleles.tsv -g results_cg/results_20190921T183955/RepeatedLoci.txt -o alleleCallMatrix_cg
 ```
-In this step, 282 *loci* were identified as possible paralogs and were removed from further analysis. The list RepeatedLoci.txt can be found at: ```results_cg/results_20190921T183955/RepeatedLoci.txt```
+In this step, 282 genes were identified as possible paralogs and were removed from further analysis. The list RepeatedLoci.txt can be found at: ```results_cg/results_20190921T183955/RepeatedLoci.txt```
 
 The output file can be found at: ```analysis_cg/alleleCallMatrix_cg.tsv```
 
@@ -134,7 +134,7 @@ datamash -W transpose < Genes_100%_Core_120.txt > Genes_Core_Al.txt
 
 This step generated the file > Genes_Core_Al.txt
 
-You can see the list file with 3168 *loci* at ```results_cg/Genes_Core_Al.txt``` and for the subsequent steps we added the full path to each locus fasta file.
+You can see the list file with 3168 target genes at ```results_cg/Genes_Core_Al.txt``` and for the subsequent steps we added the full path to each locus fasta file.
 
 This list ```results_cg/Genes_Core_Al.txt``` was then modified so that each name was preceeded by *schema_seed*:
 
@@ -147,16 +147,16 @@ This modified list can be found: ```results_cg/list_genes_core.txt```.
 
 ## Step 3: Scheme Validation (Allele calling)
 
-For the validation step we selected 2759 unfinished *P. aeruginosa* genomes that were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the draft genomes used can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```. 
+For the validation step we selected 2759 drafts *P. aeruginosa* genomes that were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the draft genomes used can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```. 
 
-Multilocus sequence type (MLST) was determined as described in step 1. The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
+Multilocus sequence type (MLST) was determined as described in step 1. The sequence type (STs) obtained for each of the 2759 drafts  genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
 
-Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes and genomes that could not be assigned STs were not included for the validation of the cgMLST scheme.  A second filter was added to remove draft genomes that had ≥200 contigs and 502 genomes were removed. 
+Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes and genomes that could not be assigned STs were not included for the validation of the cgMLST scheme.  A second filter was added to remove drafts genomes that had ≥200 contigs and 502 genomes were removed. 
 
-In the end, 73 drafts genomes were removed due to the absence of MLST *loci* and 502 were removed because the available sequences consisted of ≥200 contigs. Thus, of the 2759 drafts genomes obtained from RefSeq, 2184 genomes were used for the validation of the cgMLST scheme. The list of all the 2184 drafts genomes used to validation the schema obtained from RefSeq can be found in the folder: ```Genomes_Validation/Genomes_Validation.xlsx```.
+In the end, 73 drafts genomes were removed due to the absence of MLST *loci* and 502 were removed because the available sequences consisted of ≥200 contigs. Thus, of the 2759 drafts genomes obtained from RefSeq, 2184 drafts genomes were used for the validation of the cgMLST scheme. The list of all the 2184 drafts genomes used to validation the schema obtained from RefSeq can be found in the folder: ```Genomes_Validation/Genomes_Validation.xlsx```.
 
 
-We this set of genomes (2184 draft genomes) we repeated the allele call step using only the 3164 candidate *loci*.
+We this set of genomes (2184 drafts genomes) we repeated the allele call step using only the 3164 candidate target genes.
 
 ## Command:
 
@@ -164,11 +164,11 @@ We this set of genomes (2184 draft genomes) we repeated the allele call step usi
 chewBBACA.py AlleleCall -i Genomes_Validation -g list_genes_core.txt -o results_all --cpu 15 --ptf PAO1.trn
 ```
 
-The folder **Genomes_Validation** contains the 2184 validation draft genomes used for validation of the scheme.
+The folder **Genomes_Validation** contains the 2184 validation drafts genomes used for validation of the scheme.
 
 The folder with the output file can be found at: ```results_all/ results_20191126T121343/```. This folder contains 5 files: "logging_info.txt; RepeatedLoci.txt; results_alleles.tsv; results_contigsInfo.tsv and results_statistics.tsv".
 
-The ```results_all/ results_20191126T121343/results_alleles.tsv``` file contains the allelic profile of the 2184 typed drafts genomes.
+The ```results_all/ results_20191126T121343/results_alleles.tsv``` file contains the allelic profile of the 2184 drafts genomes.
 
 Due to the size of the **results_contigsInfo.tsv** file, it was not possible to upload it to GitHub in the ```results_all/ results_20191126T121343/``` folder, but a link to access the file is available at: (https://drive.google.com/open?id=11_sZqOXK8bkWFFsvcZo1oq7-PqCGif_G).
 
@@ -190,7 +190,7 @@ head -n 1 cgMLST_120/cgMLST.tsv > cgMLST_all.tsv
 # concatenate
 grep -v ^FILE cgMLST_120/cgMLST.tsv results_all/ results_20191126T121343/results_alleles.tsv >> cgMLST_all.tsv
 ```
-The cgMLST_all.tsv file can be found in the folder: ```analysis_all/cgMLST_all.tsv```. This file (cgMLST_all.tsv) contains the allelic profile of the 2314 genomes.
+The cgMLST_all.tsv file can be found in the folder: ```analysis_all/cgMLST_all.tsv```. This file (cgMLST_all.tsv) contains the allelic profile of the 2314 drafts genomes.
 
 ## Step 3.2: Evaluation of genome quality
 
@@ -207,7 +207,7 @@ In order to exclude validation genomes that have left the scheme it is necessary
 
 ## Step 4: Extracting the Matrix loci
 
-At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. In *Threshold* 200 a set of 2653 gene targets were found to be present in 99% the validation genomes. 
+At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. In *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the validation genomes. 
 
 From the original "removedGenomes.txt" file  that can be retrieved in the ```analysis_all/removedGenomes.txt``` folder we created another (removedGenomes200thr.txt) file with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
 
@@ -246,17 +246,17 @@ In order to check if this was true,  we re-analyzed all 2325 genomes used in the
 ## Command: 
 
 ```bash
-chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2195_genomes --cpu 15 --ptf PAO1.trn
+chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2325_genomes --cpu 15 --ptf PAO1.trn
 ```
-**Note**: with the ```results_2195_genomes/``` folder, analyze the file ```results/results_statistics.tsv.```containing the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is "typed" when at least 95% of the targets are found in the genome of interest**.
+**Note**: with the ```results_2325_genomes/``` folder, analyze the file ```results_2325_genomes/results_statistics.tsv.```containing the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is "typed" when at least 95% of the targets are found in the genome of interest**.
 
 ## Step 5: Minimum Spanning Tree
 
 For the visualization of results, minimum spanning trees were buitl. Based on the allelic profiles obtained by the cgMLST scheme for each of the 2309 genomes minimum spanning trees (MST) were constructed using the software GrapeTree (version 1.5.0) (https://github.com/achtman-lab/GrapeTree/releases) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection. The ```cgMLST_200/cgMLST.tsv ``` file contains the allelic profile of the 2309 genomes typed by cgMLST.
 
-## Step 6: Evaluation of the schema cgMLST
+## Step 6: Graphical evaluation of the scheme
 
-To assess the variability of the *loci* targets of cgMLST as well as the quality of the *loci* we run this script and graphically visualize the data in a series of html files.
+To assess the variability of the gene targets of cgMLST as well explore and evaluate the type and extent of allelic variation detected in each of the chosen *loci*. We run this script and graphically visualize the data in a series of html files.
 
 ## Command:
 
