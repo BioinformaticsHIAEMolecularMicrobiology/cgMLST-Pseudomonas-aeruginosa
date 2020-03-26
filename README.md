@@ -2,7 +2,7 @@
 
 The objective of this repository is to describe how we created a cgMLST for *P. aeruginosa*. This scheme was created with the ChewBBACA pipeline (link below). Input files used to create and validate the scheme as well as output files from each step are available. 
 
-Additionally, the steps to run the scheme and/or download the *P. aeruginosa* selected loci that compose the cgMLST scheme are also available in this repository. (Steps 8, 9 and 10)
+Additionally, the steps to run the scheme and/or download the *P. aeruginosa* selected *loci* that compose the cgMLST scheme are also available in this repository. (Steps 8, 9 and 10)
 
 ## chewBBACA
 
@@ -147,9 +147,9 @@ This modified list can be found: ```results_cg/list_genes_core.txt```.
 
 ## Step 3: Scheme Validation (Allele calling)
 
-For the validation step we selected 2759 unfinished *P. aeruginosa* genomes were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the drafts genomes used to validation the schema obtained from RefSeq can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```. 
+For the validation step we selected 2759 unfinished *P. aeruginosa* genomes that were publicly available in RefSeq (https://www.ncbi.nlm.nih.gov/assembly) in September 2018. The list of all the draft genomes used can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```. 
 
-Multilocus sequence type (MLST) was determined as described above in step 1: Creating the Schema. New sequence types (STs) were assigned a unique internal identifier (STs ≥4000). The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
+Multilocus sequence type (MLST) was determined as described in step 1. The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
 
 Genomes that could not be assigned sequence type (ST) (https://github.com/sanger-pathogens/mlst_check) were not included for the validation of the cgMLST scheme. Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes. A second filter was added to remove drafts genomes that had ≥200 contigs and 502 genomes were removed. 
 
