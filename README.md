@@ -14,7 +14,7 @@ To download ChewBBACA access the link:
 
 * Step 1: Scheme Creation
 * Step 2: Allele calling
-* Step 3: Schema Validation (Allele call)
+* Step 3: Scheme Validation (Allele call)
 * Step 4: Extracting the Matrix *loci*
 * Step 5: Minimum Spanning Tree (MST)
 * Step 6: Evaluation of the cgMLST scheme
@@ -113,7 +113,7 @@ In this stage we chose the *loci* present in 100% (*p1.0*) of the complete genom
 chewBBACA.py ExtractCgMLST -i alleleCallMatrix_cg.tsv -o cgMLST_120 -p 1.0 -g GenomeRemoved120thr.txt
 ```
 
-This script selects all * loci * present in the selected * Threshold *. The value * p * is associated with the percentage of * loci * that has been set, for example: * p1.0 * selects all * loci * present in the * Threshold * chosen in all genomes ie those present in 100% of genomes at that * Threshold *. Subsequently a cgMLST_120 folder receives the result of the allelic profile for each of the cgMLST 3168 candidate * loci * (allelic profile matrix). The file in this folder (cgMLST.tsv) contains the allelic profile of 3168 selected * loci * and will be used to create the core gene list. In addition, another 3 output files are created at this point: *cgMLSTschema.txt; mdata_stats.tsv and Presence_Absence.tsv* and they can be found in the folder ```cgMLST_120/```.
+This script selects all * loci * present in the selected * Threshold *. The value * p * is associated with the percentage of * loci * we want to be present in the set of genomes, for example: * p1.0 * selects all * loci * present in the * Threshold * chosen in all genomes ie those present in 100% of genomes at that * Threshold *. Subsequently a cgMLST_120 folder receives the result of the allelic profile for each of the 3168 candidate * loci * (allelic profile matrix). The file in this folder (cgMLST.tsv) contains the allelic profile of 3168 selected * loci * and will be used to create the core gene list. In addition, another 3 output files are created at this point: *cgMLSTschema.txt; mdata_stats.tsv and Presence_Absence.tsv* and they can be found in the folder ```cgMLST_120/```.
 
 ## Step 2.3: Creating the core gene list
 
@@ -134,7 +134,7 @@ datamash -W transpose < Genes_100%_Core_120.txt > Genes_Core_Al.txt
 
 This step generated the file > Genes_Core_Al.txt
 
-You can see the list file with 3168 *loci* at ```results_cg/Genes_Core_Al.txt``` and for further use, we add for each *loci* the full path to each locus fasta file.
+You can see the list file with 3168 *loci* at ```results_cg/Genes_Core_Al.txt``` and for the subsequent steps we added the full path to each locus fasta file.
 
 This list ```results_cg/Genes_Core_Al.txt``` was then modified so that each name was preceeded by *schema_seed*:
 
@@ -151,12 +151,12 @@ For the validation step we selected 2759 unfinished *P. aeruginosa* genomes that
 
 Multilocus sequence type (MLST) was determined as described in step 1. The sequence type (STs) obtained for each of the 2759 drafts genomes using the sanger-pathogens/mlst_check can be found in the folder ```Genomes_Validation/Genomes_Validation.xlsx```.
 
-Genomes that could not be assigned sequence type (ST) (https://github.com/sanger-pathogens/mlst_check) were not included for the validation of the cgMLST scheme. Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes. A second filter was added to remove drafts genomes that had ≥200 contigs and 502 genomes were removed. 
+Of the 2759 drafts genomes available, it was possible to assign STs to 2686 drafts genomes and genomes that could not be assigned STs were not included for the validation of the cgMLST scheme.  A second filter was added to remove draft genomes that had ≥200 contigs and 502 genomes were removed. 
 
 In the end, 73 drafts genomes were removed due to the absence of MLST *loci* and 502 were removed because the available sequences consisted of ≥200 contigs. Thus, of the 2759 drafts genomes obtained from RefSeq, 2184 genomes were used for the validation of the cgMLST scheme. The list of all the 2184 drafts genomes used to validation the schema obtained from RefSeq can be found in the folder: ```Genomes_Validation/Genomes_Validation.xlsx```.
 
 
-From this we repeat the allele call using only the selected candidate *3164 loci* for each of the draft genomes selected for validation (2184 genome drafts) after performing the filters described above.
+We this set of genomes (2184 draft genomes) we repeated the allele call step using only the 3164 candidate *loci*.
 
 ## Command:
 
@@ -164,7 +164,7 @@ From this we repeat the allele call using only the selected candidate *3164 loci
 chewBBACA.py AlleleCall -i Genomes_Validation -g list_genes_core.txt -o results_all --cpu 15 --ptf PAO1.trn
 ```
 
-This folder **Genomes_Validation** has all 2184 validation drafts genomes acquired from the RefSeq that has STs and they had less than 200 contigs.
+The folder **Genomes_Validation** contains the 2184 validation draft genomes used for validation of the scheme.
 
 The folder with the output file can be found at: ```results_all/ results_20191126T121343/```. This folder contains 5 files: "logging_info.txt; RepeatedLoci.txt; results_alleles.tsv; results_contigsInfo.tsv and results_statistics.tsv".
 
@@ -173,9 +173,9 @@ The ```results_all/ results_20191126T121343/results_alleles.tsv``` file contains
 Due to the size of the **results_contigsInfo.tsv** file, it was not possible to upload it to GitHub in the ```results_all/ results_20191126T121343/``` folder, but a link to access the file is available at: (https://drive.google.com/open?id=11_sZqOXK8bkWFFsvcZo1oq7-PqCGif_G).
 
 
-## Step 3.1: Concatenate the allelic
+## Step 3.1: Concatenate the allelic profiles
 
-Concatenate the allelic profile matrix obtained from the creation of the scheme ```cgMLST_120/cgMLST.tsv``` with the matrix obtained for the validation genomes ```results_all/ results_20191126T121343/results_alleles.tsv```. To concatenate the matrix of the *loci* that defined the scheme and matrix of the *loci* of the validation genomes was used the following command:
+The purpose of this step is to concatenate the matrix of the *loci* that defined the scheme and the matrix of the *loci* from the validation genomes. Thus, to concatenate the allelic profile matrix obtained from the creation of the scheme ```cgMLST_120/cgMLST.tsv``` with the matrix obtained for the validation genomes ```results_all/ results_20191126T121343/results_alleles.tsv```.  The following command was used:
 
 ## Command:
 
@@ -194,7 +194,7 @@ The cgMLST_all.tsv file can be found in the folder: ```analysis_all/cgMLST_all.t
 
 ## Step 3.2: Evaluation of genome quality
 
-After concatenation, the *TestGenomeQuality* to assess the impact of each validation genome in relation to the *loci* candidates in order to exclude low quality validation genomes. In this step you need to define a new *Threshold* for this dataset, as well as a new value of the parameter *p*, because *loci* that remain after the filters are the ones that constituted the final scheme.
+After concatenation, we used the *TestGenomeQuality* to assess the impact of each validation genome on candidate *loci*  in order to exclude low quality validation genomes. In this step you may need to define a new *Threshold*, as well as a new value of the parameter *p*, because *loci* that remain after the filters are the ones that will constituted the final scheme.
 
 ## Command:
 
@@ -207,11 +207,11 @@ In order to exclude validation genomes that have left the scheme it is necessary
 
 ## Step 4: Extracting the Matrix loci
 
-In this stage we choose the *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 that limited the loss of the *loci* in the genomes. 
+At this step we chose *loci* present in 99% (*p0.99*) of the validation genomes and the *Threshold* 200 to limit the loss of the *loci* in the genomes. 
 
-In this *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the analyzed genomes, while 3116 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_all/GenomeQualityPlot.html```. The list with the genes present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```. From this list we created another (removedGenomes200thr.txt) with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
+In *Threshold* 200 a set of 2653 *loci* were found to be present in 99% the analyzed genomes, while 3116 *loci* were present in at least 95%. The output file can be found in the folder: ```analysis_all/GenomeQualityPlot.html```. The list with the *loci* present in 95% of the genomes at the chosen *Threshold* can be retrieved in the folder ```analysis_all/Genes_95%.txt```. The list of genomes removed at each *Threshold* can be retrieved in the folder ```analysis_all/removedGenomes.txt```. From this list we created another (removedGenomes200thr.txt) with only the genomes removed at *Threshold* (200). The list of genomes removed at *Threshold 200* can be retrieved in the folder: ```analysis_all/removedGenomes200.txt```
 
-In this *Threshold* (200) 5 drafts genomes were removed due to loss of *loci* targets.
+Using *Threshold* (200) only 5 draft genomes were removed due to absence of *loci* targets.
 
 To transpose (put the names of the validation genomes one in each line) we used the datamash and created the file > removedGenomes200thr.txt. This file can be found in the folder: ```analysis_all/removedGenomes200.txt```
 
@@ -221,7 +221,7 @@ To transpose (put the names of the validation genomes one in each line) we used 
 # transpose
 datamash -W transpose < removedGenomes200.txt > removedGenomes200thr.txt
 ``` 
-The genomes that were excluded in the *Threshold 200* have been placed in the **removedGenomes200thr.txt**
+The genomes that were excluded in the *Threshold 200* have been placed in **removedGenomes200thr.txt**
 
 This file can be found in the folder: ```analysis_all/removedGenomes200thr.txt```
 
@@ -231,28 +231,28 @@ This file can be found in the folder: ```analysis_all/removedGenomes200thr.txt``
 chewBBACA.py ExtractCgMLST -i cgMLST_all.tsv -o cgMLST_200 -p0.99 -g removedGenomes200thr.txt 
 ```
 
-This script selects *loci* and genomes that remained in the *Threshold* 200 and excludes the validation and *loci* genomes that were excluded in this *Threshold*.
+This script selects *loci* and genomes that remained in the *Threshold* 200 and excludes the validation genomes and *loci* that were excluded with this *Threshold*.
 
 The folder with the output file can be found at: ```cgMLST_200```. This folder contains four files "cgMLST.tsv; cgMLSTschema.txt; mdata_stats.tsv and Presence_Absence.tsv".
 
-The folder with targets of cgMLST the file can be found at: ```cgMLST_200/cgMLSTschema.txt``` contains the list of 2653 genes in the core genome defined as targets of cgMLST. The list with the 2653 cgMLST target genes with the path added for each locus fasta file to be searched in the schema_seed folder is in the folder:```cgMLST_200/gene_targets.txt```
+The cgMLST targets can be found at: ```cgMLST_200/cgMLSTschema.txt``` It contains the list of 2653 genes in the core genome defined as targets for this scheme. The list with the 2653 cgMLST gene targets with the path added for each locus fasta file to be searched in the schema_seed folder is in the folder:```cgMLST_200/gene_targets.txt```
 
 ## Step 4.1: Checking the percentage of target genes found in the evaluated genomes
 
-With the schema terminated with 2653 target genes. It was assumed that a well-defined cgMLST scheme should cover at least 95% of the cgMLST genes should be present in all isolates. Thus, we consider that an isolate is considered typed with our cgMLST scheme with 2653 targets for *P. aeruginosa* when it has coverage of at least 95% of the cgMLST genes.
+We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets should be present in all tested isolates. Thus, an isolate is considered to be "typed" with our cgMLST scheme if at least 95% of the 2653 targets were present.
 
-We did not analyze the 130 complete genomes that created the scheme since they had all 2653 cgMLST targets. Thus, we re-analyzed 2195 genomes, of which 11 were complete genomes that were removed in the schema creation step and 2184 draft genomes that were used to validate the cgMLST scheme. 
+In order to check if this was true,  we re-analyzed 2195 genomes (XXXX quem sao? plus the 11 complete genomes that had been removed during the scheme creation step) and 2184 draft genomes that were used to validate the cgMLST scheme. 
 
 ## Command: 
 
 ```bash
 chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2195_genomes --cpu 15 --ptf PAO1.trn
 ```
-**Note**: After releasing the ```results_2195_genomes/``` folder, analyze the file ```results/results_statistics.tsv.```contains the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is considered typed through this schema when at least 95% of the targets are found in the genome of interest**.
+**Note**: with the ```results_2195_genomes/``` folder, analyze the file ```results/results_statistics.tsv.```containing the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is "typed" when at least 95% of the targets are found in the genome of interest**.
 
 ## Step 5: Minimum Spanning Tree
 
-Based on the allelic profiles obtained by the cgMLST scheme for each of the 2309 genomes minimum spanning trees (MST) were constructed using the software GrapeTree (version 1.5.0) (https://github.com/achtman-lab/GrapeTree/releases) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection. The ```cgMLST_200/cgMLST.tsv ``` file contains the allelic profile of the 2309 genomes typed by cgMLST.
+For the visualization of results, minimum spanning trees were buitl. Based on the allelic profiles obtained by the cgMLST scheme for each of the 2309 genomes minimum spanning trees (MST) were constructed using the software GrapeTree (version 1.5.0) (https://github.com/achtman-lab/GrapeTree/releases) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection. The ```cgMLST_200/cgMLST.tsv ``` file contains the allelic profile of the 2309 genomes typed by cgMLST.
 
 ## Step 6: Evaluation of the schema cgMLST
 
@@ -268,7 +268,7 @@ Due to the size of the file rms/RmS.html it was not possible to upload it on Git
 
 ## Step 7: Analyze the proteins in the genes of the wgMLST
 
-To check which protein encodes each *loci* found in the wg/cgMLST. The list of proteins corresponding to all 13588 *loci* identified in the wg / cgMLST targets is found in the **new_protids.tsv** file. The list of proteins encoded by the 2653 cgMLST target genes can be found as: **Target_genes_cgMLST.xlsx**
+To check which protein encodes each *loci* found in the wg/cgMLST a list of proteins corresponding to all 13588 *loci* identified in the wg / cgMLST targets is found in the **new_protids.tsv** file. The list of proteins encoded by the 2653 cgMLST target genes can be found as: **Target_genes_cgMLST.xlsx**
 
 ## Command:
 
@@ -276,23 +276,23 @@ To check which protein encodes each *loci* found in the wg/cgMLST. The list of p
 chewBBACA.py UniprotFinder -i schema_seed/ -t proteinID_Genome.tsv --cpu 10
 ```
 
-## Step 8: How to identify the allelic profile of the genomes of interest using this cgMLST database for *P. aeruginosa*
+## Step 8: How to identify the allelic profile of your *P. aeruginosa* genomes of interest using this cgMLST scheme?
 
-In the steps below we are describing all the necessary steps to identify the allelic profile of the genomes of interest using the cgMLST schema.
+In the steps below we describe all the necessary steps to identify the allelic profile of the genomes of interest using this cgMLST scheme.
 
 ## Step 8.1: Install ChewBBACA and all its dependencies;
 
-To download ChewBBACA and all its dependencies see the topic: Softwares and Downloads (Main dependencies); Other dependencies (for schema evaluation only):
+To download ChewBBACA and all its dependencies see the topic: Softwares and Downloads (Main dependencies); Other dependencies (for scheme evaluation only):
 
-## Step 8.2: Download Schema
+## Step 8.2: Download Scheme
 
-To have access to the cgMLST schema for *P. aeruginosa* it is necessary to download the ```schema_seed/``` folder. To access this ```schema_seed/``` folder just enter the link (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
+To have access to the cgMLST scheme for *P. aeruginosa* it is necessary to download the ```schema_seed/``` folder. To access this ```schema_seed/``` folder just enter the link (https://drive.google.com/open?id=1WpsmbMC0awZ7BH8lazoiv-t56A2xnMIO).
 
-**Note:** The ```schema_seed/``` folder was created in Step 1 where we identified all CDs of the 141 complete genomes creating the schema.
+**Note:** The ```schema_seed/``` folder was created in Step 1 where we identified all CDs of the 141 complete genomes creating the scheme.
 
 ## Step 8.3: Download the list of target genes
 
-This list already contains full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```. 
+This list already contains the full path for each locus fasta file for ChewBBACA to fetch the target genes in the folder ```schema_seed/```. 
 
 The list of cgMLST target genes can be obtained from the ```Analyze_genomes/gene_targets.txt```folder.
 
@@ -317,16 +317,16 @@ chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results --cpu 15 --ptf
 
 This command will release the output in the folder: ```results/```
 
-## Step 8.6: How should be the master directory to run ChewBBACA
+## Step 8.6: A master directory to run ChewBBACA
 
 A master directory ```Analyze_genomes/``` containing the folders that are needed to run ChewBBACA with the 2653 cgMLST target genes was created as an example. This folder contains a directory called ```example_genomes/``` representing the folder of the genomes to be typed. The second folder is the ```example_schema_seed/``` representing the ```schema_seed/``` folder that must be downloaded. In addition to two “gene_targets.txt” files containing the 2653 target genes of cgMLST and the file "PA01.trn" which is the prodigal's trained file to recognize CDs.
 
 ## Step 9: Analyze the results
 
-The allelic profile of the typed genomes will be in the folder: ```results/results_alleles.tsv``` which is the output of the file released by the script above. Others output released by the above script will be in the folder ```results/```, as an example: RepeatedLoci.txt; logging_info.txt; results_contigsInfo.tsv and results_statistics.tsv.
+The allelic profile of the typed genomes will be in the folder: ```results/results_alleles.tsv``` which is the output of the file released by the script above. Other outputs will be in the folder ```results/```, as an example: RepeatedLoci.txt; logging_info.txt; results_contigsInfo.tsv and results_statistics.tsv.
 
-**Note**: After releasing the ```results/``` folder, analyze the file ```results/results_statistics.tsv.```contains the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is considered typed through this schema when at least 95% of the targets are found in the genome of interest**.
+**Note**: With the ```results/``` folder, analyze the file ```results/results_statistics.tsv.```It contains the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed scheme we consider that an isolate is considered typed when at least 95% of the targets are found in its genome**.
 
 ## Step 10: Allele profile view by minimum spanning tree (MST)
 
-To view the allelic profile data of the typed genomes you need to access the output of the script present in the folder ```results/results_alleles.tsv```. It is possible in two ways the first is to download free software GrapeTree (version1.5.0) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection available in (https://github.com/achtman-lab/GrapeTree/releases) or through the software Phyloviz online.
+To view the allelic profile data of the typed genomes you need to access the output of the script present in the folder ```results/results_alleles.tsv```. It is possible to do so in two ways: the first is to download the free software GrapeTree (version1.5.0) with parameters implemented in MSTree v2 ignoring missing values for the entire strain collection available in (https://github.com/achtman-lab/GrapeTree/releases) or through the software Phyloviz, online.
