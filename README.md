@@ -243,9 +243,11 @@ We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets 
 
 In order to check if this was true,  we re-analyzed all 2326 genomes used in the creation and validation stages including the genome of the reference isolate PAO1, even those that were in these different stages.
 
-With a *cut-off* of at least 95% of the target genes present in all analyzed genomes. We were able to type 2,315/2,326 genomes evaluated in this study. 
+With a *cut-off* of at least 95% of the target genes present in all analyzed genomeswe were able to type 2315/2326 genomes evaluated in this study. 
 
-Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found.
+Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found. To retrieve the list of genomes with less than 95% coverage of cgMLST target genes access the file: ```results_2326_genomes/results_statistics.tsv.```
+
+Due to the size of the file results_contigsInfo_all.tsv it was not possible to upload it on GitHub, but a link to access the file results_contigsInfo_all.tsv is available at: (https://drive.google.com/open?id=1C7QvxeGwYfkXmD-kxE-hSrScpCNm3CZ1).
 
 ## Command: 
 
@@ -253,8 +255,6 @@ Thus, 11 genomes were not considered typed with the proposed scheme because less
 chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2326_genomes --cpu 4 --ptf PAO1.trn
 ```
 **Note**: with the ```results_2326_genomes/``` folder, analyze the file ```results_2326_genomes/results_statistics.tsv.```containing the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is "typed" when at least 95% of the targets are found in the genome of interest**.
-
-Due to the size of the file results_contigsInfo_all.tsv it was not possible to upload it on GitHub, but a link to access the file rms/RmS.html is available at: ().
 
 ## Step 5: Minimum Spanning Tree
 
