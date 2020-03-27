@@ -245,7 +245,7 @@ In order to check if this was true,  we re-analyzed all 2326 genomes used in the
 
 With a *cut-off* of at least 95% of the target genes present in all analyzed genomeswe were able to type 2315/2326 genomes evaluated in this study. 
 
-Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found. To retrieve the list of genomes with less than 95% coverage of cgMLST target genes access the file: ```results_2326_genomes/results_statistics.tsv.```
+Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found. To retrieve the list of genomes with less than 95% coverage of cgMLST target genes access the file: ```results_2326_genomes/results_statistics_all.tsv.```
 
 Due to the size of the file results_contigsInfo_all.tsv it was not possible to upload it on GitHub, but a link to access the file results_contigsInfo_all.tsv is available at: (https://drive.google.com/open?id=1C7QvxeGwYfkXmD-kxE-hSrScpCNm3CZ1).
 
