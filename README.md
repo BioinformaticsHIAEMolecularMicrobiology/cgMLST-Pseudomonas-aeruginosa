@@ -241,9 +241,9 @@ The cgMLST targets can be found at: ```cgMLST_200/cgMLSTschema.txt``` It contain
 
 We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets should be present in all tested isolates. Thus, an isolate is considered to be "typed" with our cgMLST scheme if at least 95% of the 2653 targets were present.
 
-During the creation of the scheme, 11 complete genomes (fully assembled) had been discarded because they did not harbor the 3168 candidate loci, another 5 unfinished genomes were removed in the validation step. We reanalyzed those 16 isolates considering the final set of 2,653 loci.
+During the creation of the scheme, 11 complete genomes (fully assembled) had been discarded because they did not harbor the 3168 candidate loci, another 5 drafts genomes were removed in the validation step. We reanalyzed those 16 isolates considering the final set of 2653 loci.
 
-We verified our results and, considering the 2325  genomes (141 fully assembled sequences and 2184 unfinished genomes) only 11 isolates did not harbor at least 95% of the selected loci (1 fully assembled genome and 10 unfinished genome sequences).
+We verified our results and, considering the 2325  genomes (141 fully assembled sequences and 2184 drafts genomes) only 11 isolates did not harbor at least 95% of the selected loci (1 fully assembled genome and 10 drafts genome sequences).
 
 
 ## Step 5: Minimum Spanning Tree
