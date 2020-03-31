@@ -241,9 +241,9 @@ The cgMLST targets can be found at: ```cgMLST_200/cgMLSTschema.txt``` It contain
 
 We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets should be present in all tested isolates. Thus, an isolate is considered to be "typed" with our cgMLST scheme if at least 95% of the 2653 targets were present.
 
-In order to check if this was true,  we re-analyzed all 2326 genomes used in the creation and validation stages including the genome of the reference isolate PAO1, even those that were in these different stages.
+In order to check if this was true,  we re-analyzed all 2325 genomes used in the creation and validation stages.
 
-With a *cut-off* of at least 95% of the target genes present in all analyzed genomeswe were able to type 2315/2326 genomes evaluated in this study. 
+With a *cut-off* of at least 95% of the target genes present in all analyzed genomes we were able to type 2314/2325 genomes evaluated in this study. 
 
 Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found. To retrieve the list of genomes with less than 95% coverage of cgMLST target genes access the file: ```results_2326_genomes/results_statistics_all.tsv.```
 
