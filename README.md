@@ -241,20 +241,10 @@ The cgMLST targets can be found at: ```cgMLST_200/cgMLSTschema.txt``` It contain
 
 We assumed that for a well-defined cgMLST scheme 95% of the cgMLST gene targets should be present in all tested isolates. Thus, an isolate is considered to be "typed" with our cgMLST scheme if at least 95% of the 2653 targets were present.
 
-In order to check if this was true,  we re-analyzed all 2325 genomes used in the creation and validation stages.
+During the creation of the scheme, 11 complete genomes (fully assembled) had been discarded because they did not harbor the 3168 candidate loci, another 5 unfinished genomes were removed in the validation step. We reanalyzed those 16 isolates considering the final set of 2,653 loci.
 
-With a *cut-off* of at least 95% of the target genes present in all analyzed genomes we were able to type 2314/2325 genomes evaluated in this study. 
+We verified our results and, considering the 2325  genomes (141 fully assembled sequences and 2184 unfinished genomes) only 11 isolates did not harbor at least 95% of the selected loci (1 fully assembled genome and 10 unfinished genome sequences).
 
-Thus, 11 genomes were not considered typed with the proposed scheme because less than 95% of the target genes were found. To retrieve the list of genomes with less than 95% coverage of cgMLST target genes access the file: ```results_2326_genomes/results_statistics_all.tsv.```
-
-Due to the size of the file results_contigsInfo_all.tsv it was not possible to upload it on GitHub, but a link to access the file results_contigsInfo_all.tsv is available at: (https://drive.google.com/open?id=1C7QvxeGwYfkXmD-kxE-hSrScpCNm3CZ1).
-
-## Command: 
-
-```bash
-chewBBACA.py AlleleCall -i genomes -g gene_targets.txt -o results_2326_genomes --cpu 4 --ptf PAO1.trn
-```
-**Note**: with the ```results_2326_genomes/``` folder, analyze the file ```results_2326_genomes/results_statistics.tsv.```containing the number of genes that were found with 100% identity in the analyzed genomes (EXC - alleles which have exact matches (100% DNA identity) with previously identified alleles). **With the proposed schema we consider that an isolate is "typed" when at least 95% of the targets are found in the genome of interest**.
 
 ## Step 5: Minimum Spanning Tree
 
